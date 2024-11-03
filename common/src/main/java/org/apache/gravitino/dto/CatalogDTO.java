@@ -21,6 +21,7 @@ package org.apache.gravitino.dto;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.google.common.base.Preconditions;
 import java.util.Map;
+import java.util.stream.Collectors;
 import javax.annotation.Nullable;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
@@ -139,6 +140,27 @@ public class CatalogDTO implements Catalog {
   @Override
   public Audit auditInfo() {
     return audit;
+  }
+
+  /**
+   * Returns a copy of this CatalogDTO with credential information masked in properties. Any
+   * property key containing "password" (case-insensitive) will have its value replaced with "***".
+   *
+   * @return A new CatalogDTO instance with masked credentials
+   */
+  public CatalogDTO withMaskedCredentials() {
+    if (properties == null || properties.isEmpty()) {
+      return this;
+    }
+
+    Map<String, String> maskedProperties =
+        properties.entrySet().stream()
+            .collect(
+                Collectors.toMap(
+                    Map.Entry::getKey,
+                    e -> e.getKey().toLowerCase().contains("password") ? "" : e.getValue()));
+
+    return new CatalogDTO(name, type, provider, comment, maskedProperties, audit);
   }
 
   /**

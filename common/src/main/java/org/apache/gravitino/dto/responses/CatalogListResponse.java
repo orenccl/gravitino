@@ -43,7 +43,8 @@ public class CatalogListResponse extends BaseResponse {
    */
   public CatalogListResponse(CatalogDTO[] catalogs) {
     super(0);
-    this.catalogs = catalogs;
+    this.catalogs =
+        Arrays.stream(catalogs).map(CatalogDTO::withMaskedCredentials).toArray(CatalogDTO[]::new);
   }
 
   /**

@@ -42,7 +42,7 @@ public class CatalogResponse extends BaseResponse {
    */
   public CatalogResponse(CatalogDTO catalog) {
     super(0);
-    this.catalog = catalog;
+    this.catalog = catalog.withMaskedCredentials();
   }
 
   /** Default constructor for CatalogResponse. (Used for Jackson deserialization.) */
