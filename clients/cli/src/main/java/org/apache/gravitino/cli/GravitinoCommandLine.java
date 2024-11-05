@@ -43,6 +43,7 @@ import org.apache.gravitino.cli.commands.ListCatalogs;
 import org.apache.gravitino.cli.commands.ListColumns;
 import org.apache.gravitino.cli.commands.ListGroups;
 import org.apache.gravitino.cli.commands.ListMetalakeProperties;
+import org.apache.gravitino.cli.commands.ListIndexes;
 import org.apache.gravitino.cli.commands.ListMetalakes;
 import org.apache.gravitino.cli.commands.ListSchema;
 import org.apache.gravitino.cli.commands.ListSchemaProperties;
@@ -88,7 +89,7 @@ public class GravitinoCommandLine {
    *
    * @param line Parsed command line object.
    * @param options Available options for the CLI.
-   * @param entity The entity to apply the command to e.g. metlake, catalog, schema, table etc etc.
+   * @param entity The entity to apply the command to e.g. metlake, catalog, schema, table etc.
    * @param command The type of command to run i.e. list, details, update, delete, or create.
    */
   public GravitinoCommandLine(CommandLine line, Options options, String entity, String command) {
@@ -321,6 +322,8 @@ public class GravitinoCommandLine {
     if (CommandActions.DETAILS.equals(command)) {
       if (line.hasOption(GravitinoOptions.AUDIT)) {
         new TableAudit(url, ignore, metalake, catalog, schema, table).handle();
+      } else if (line.hasOption(GravitinoOptions.INDEX)) {
+        new ListIndexes(url, ignore, metalake, catalog, schema, table).handle();
       } else {
         new TableDetails(url, ignore, metalake, catalog, schema, table).handle();
       }
