@@ -44,6 +44,7 @@ import org.apache.gravitino.cli.commands.ListColumns;
 import org.apache.gravitino.cli.commands.ListGroups;
 import org.apache.gravitino.cli.commands.ListMetalakeProperties;
 import org.apache.gravitino.cli.commands.ListIndexes;
+import org.apache.gravitino.cli.commands.ListMetalakeProperties;
 import org.apache.gravitino.cli.commands.ListMetalakes;
 import org.apache.gravitino.cli.commands.ListSchema;
 import org.apache.gravitino.cli.commands.ListSchemaProperties;
