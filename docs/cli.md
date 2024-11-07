@@ -32,20 +32,21 @@ The general structure for running commands with the Gravitino CLI is `gcli entit
  -c,--comment <arg>      entity comment
  -g,--group <arg>        group name
  -h,--help               command help information
- -i,--ignore             Ignore client/sever version check
+ -i,--ignore             ignore client/sever version check
  -l,--user <arg>         user name
  -a,--audit              display audit information
- -m,--metalake <arg>     Metalake name
+ -m,--metalake <arg>     metalake name
  -n,--name <arg>         full entity name (dot separated)
  -P,--property <arg>     property name
  -p,--properties <arg>   property name/value pairs
  -r,--rename <arg>       new entity name
- -s,--server             Gravitino server version
+ -s,--server             gravitino server version
  -t,--provider <arg>     provider one of hadoop, hive, mysql, postgres,
                          iceberg, kafka
- -u,--url <arg>          Gravitino URL (default: http://localhost:8090)
- -v,--version            Gravitino client version
+ -u,--url <arg>          gravitino URL (default: http://localhost:8090)
+ -v,--version            gravitino client version
  -V,--value <arg>        property value
+ -d,--index              shows all indexes defined for a specific table
  ```
 
 ## Commands
@@ -351,6 +352,12 @@ gcli column list --metalake metalake_demo --name catalog_postgres.hr.departments
 
 ```bash
 gcli table details --metalake metalake_demo --name catalog_postgres.hr.departments --audit
+```
+
+### Show table indexex
+
+```bash
+gcli column list --metalake metalake_demo --name catalog_mysql.db.iceberg_namespace_properties --index
 ```
 
 #### Delete a table
