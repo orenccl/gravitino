@@ -27,10 +27,11 @@ plugins {
 dependencies {
   compileOnly(project(":api"))
   compileOnly(project(":core"))
+  compileOnly(project(":catalogs:catalog-common"))
   compileOnly(project(":catalogs:catalog-hadoop"))
-
   compileOnly(libs.hadoop3.common)
 
+  // TODO: May need adls libs?
   implementation(libs.commons.lang3)
   // runtime used
   implementation(libs.commons.logging)

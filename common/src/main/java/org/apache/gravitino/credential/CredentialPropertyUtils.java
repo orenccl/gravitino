@@ -33,6 +33,8 @@ public class CredentialPropertyUtils {
   @VisibleForTesting static final String ICEBERG_S3_SECRET_ACCESS_KEY = "s3.secret-access-key";
   @VisibleForTesting static final String ICEBERG_S3_TOKEN = "s3.session-token";
   @VisibleForTesting static final String ICEBERG_GCS_TOKEN = "gcs.oauth2.token";
+  @VisibleForTesting static final String ICEBERG_ADLS_ACCOUNT_NAME = "adls.account-name";
+  @VisibleForTesting static final String ICEBERG_ADLS_ACCOUNT_KEY = "adls.account-key";
 
   private static Map<String, String> icebergCredentialPropertyMap =
       ImmutableMap.of(
@@ -43,7 +45,11 @@ public class CredentialPropertyUtils {
           S3SecretKeyCredential.GRAVITINO_S3_STATIC_SECRET_ACCESS_KEY,
           ICEBERG_S3_SECRET_ACCESS_KEY,
           S3TokenCredential.GRAVITINO_S3_TOKEN,
-          ICEBERG_S3_TOKEN);
+          ICEBERG_S3_TOKEN,
+          ADLSAccountKeyCredential.GRAVITINO_ADLS_ACCOUNT_NAME,
+          ICEBERG_ADLS_ACCOUNT_NAME,
+          ADLSAccountKeyCredential.GRAVITINO_ADLS_ACCOUNT_KEY,
+          ICEBERG_ADLS_ACCOUNT_KEY);
 
   /**
    * Transforms a specific credential into a map of Iceberg properties.

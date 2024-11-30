@@ -20,10 +20,6 @@ package org.apache.gravitino.iceberg.integration.test;
 
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.ImmutableSet;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
 import org.apache.iceberg.exceptions.BadRequestException;
 import org.apache.iceberg.exceptions.ValidationException;
 import org.apache.spark.sql.AnalysisException;
@@ -77,6 +73,11 @@ public abstract class IcebergRESTServiceIT extends IcebergRESTServiceBaseIT {
     databasesString.stream()
         .filter(ns -> ns.startsWith(ICEBERG_REST_NS_PREFIX))
         .forEach(ns -> purgeNameSpace(ns));
+  }
+
+  protected String getFromEnvOrDefault(String envVar, String defaultValue) {
+    String envValue = System.getenv(envVar);
+    return Optional.ofNullable(envValue).orElse(defaultValue);
   }
 
   @Test
