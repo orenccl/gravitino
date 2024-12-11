@@ -78,9 +78,10 @@ public class IcebergCatalogWrapper implements AutoCloseable {
           IcebergConstants.ICEBERG_S3_ENDPOINT,
           IcebergConstants.ICEBERG_OSS_ENDPOINT,
           IcebergConstants.ICEBERG_OSS_ACCESS_KEY_ID,
-          IcebergConstants.ICEBERG_OSS_ACCESS_KEY_SECRET,
-          IcebergConstants.ICEBERG_ADLS_STORAGE_ACCOUNT_NAME,
-          IcebergConstants.ICEBERG_ADLS_STORAGE_ACCOUNT_KEY);
+          IcebergConstants.ICEBERG_OSS_ACCESS_KEY_SECRET
+          //          IcebergConstants.ICEBERG_ADLS_STORAGE_ACCOUNT_NAME,
+          //          IcebergConstants.ICEBERG_ADLS_STORAGE_ACCOUNT_KEY
+          );
 
   public IcebergCatalogWrapper(IcebergConfig icebergConfig) {
     this.catalogBackend =

@@ -27,6 +27,7 @@ import com.azure.storage.file.datalake.DataLakeServiceClientBuilder;
 import com.azure.storage.file.datalake.implementation.util.DataLakeSasImplUtil;
 import com.azure.storage.file.datalake.models.UserDelegationKey;
 import com.azure.storage.file.datalake.sas.DataLakeServiceSasSignatureValues;
+import com.azure.storage.file.datalake.sas.FileSystemSasPermission;
 import com.azure.storage.file.datalake.sas.PathSasPermission;
 import java.time.OffsetDateTime;
 import java.util.HashSet;
@@ -75,6 +76,21 @@ public class ADLSTokenProvider implements CredentialProvider {
     }
     PathBasedCredentialContext pathBasedCredentialContext = (PathBasedCredentialContext) context;
 
+    Set<String> writePaths = pathBasedCredentialContext.getWritePaths();
+    Set<String> readPaths = pathBasedCredentialContext.getReadPaths();
+
+    Set<String> combinedPaths = new HashSet<>(writePaths);
+    combinedPaths.addAll(readPaths);
+
+    if (combinedPaths.size() != 1) {
+      throw new IllegalArgumentException(
+              "ADLS should contain exactly one unique path, but found: "
+                      + combinedPaths.size()
+                      + " paths: "
+                      + combinedPaths);
+    }
+    String uniquePath = combinedPaths.iterator().next();
+
     TokenCredential tokenCredential =
         new ClientSecretCredentialBuilder()
             .tenantId(tenantId)
@@ -92,32 +108,25 @@ public class ADLSTokenProvider implements CredentialProvider {
     OffsetDateTime expiry = start.plusSeconds(tokenExpireSecs);
     UserDelegationKey userDelegationKey = dataLakeServiceClient.getUserDelegationKey(start, expiry);
 
-    // Define Path SAS permissions, read, write, delete, list
-    PathSasPermission permission = PathSasPermission.parse("rwdl");
+    // Define Path SAS permissions, read, write, delete, list, add
+    PathSasPermission pathSasPermission = PathSasPermission.parse("rwdlca");
     DataLakeServiceSasSignatureValues signatureValues =
-        new DataLakeServiceSasSignatureValues(expiry, permission);
-
-    Set<String> writePaths = pathBasedCredentialContext.getWritePaths();
-    Set<String> readPaths = pathBasedCredentialContext.getReadPaths();
-
-    Set<String> combinedPaths = new HashSet<>(writePaths);
-    combinedPaths.addAll(readPaths);
-
-    if (combinedPaths.size() != 1) {
-      throw new IllegalArgumentException(
-          "ADLS should contain exactly one unique path, but found: "
-              + combinedPaths.size()
-              + " paths: "
-              + combinedPaths);
-    }
-    String uniquePath = combinedPaths.iterator().next();
+            new DataLakeServiceSasSignatureValues(expiry, pathSasPermission);
 
     ADLSLocationUtils.ADLSLocationParts locationParts = ADLSLocationUtils.parseLocation(uniquePath);
+//    String sasToken =
+//            new DataLakeSasImplUtil(
+//                    signatureValues, locationParts.getContainer(), locationParts.getPath().replaceAll("^/+|/*$", ""), true)
+//                    .generateUserDelegationSas(
+//                            userDelegationKey, locationParts.getAccountName(), new Context("Azure-Storage-Log-String-To-Sign", true));
+//    String path = locationParts.getPath().replaceAll("^/+|/*$", "");
+//    boolean isDirectory = !path.contains(".");
+
     String sasToken =
-        new DataLakeSasImplUtil(
-                signatureValues, locationParts.getContainer(), locationParts.getPath(), true)
-            .generateUserDelegationSas(
-                userDelegationKey, locationParts.getAccountName(), Context.NONE);
+            new DataLakeSasImplUtil(
+                    signatureValues, locationParts.getContainer(), "", true)
+                    .generateUserDelegationSas(
+                            userDelegationKey, locationParts.getAccountName(), new Context("Azure-Storage-Log-String-To-Sign", true));
 
     return new ADLSTokenCredential(sasToken, tokenExpireSecs * 1000);
   }

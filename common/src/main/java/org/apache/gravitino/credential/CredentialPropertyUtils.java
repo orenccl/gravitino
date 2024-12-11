@@ -79,7 +79,11 @@ public class CredentialPropertyUtils {
       return transformProperties(credential.credentialInfo(), icebergCredentialPropertyMap);
     }
     if (credential instanceof ADLSTokenCredential) {
-      return transformProperties(credential.credentialInfo(), icebergCredentialPropertyMap);
+      Map<String, String> icebergADLSCredentialProperties =
+          transformProperties(credential.credentialInfo(), icebergCredentialPropertyMap);
+      icebergADLSCredentialProperties.put(
+          "adls.sas-token.juwnl.dfs.core.windows.net", String.valueOf(((ADLSTokenCredential) credential).sasToken()));
+      return icebergADLSCredentialProperties;
     }
     return credential.toProperties();
   }
