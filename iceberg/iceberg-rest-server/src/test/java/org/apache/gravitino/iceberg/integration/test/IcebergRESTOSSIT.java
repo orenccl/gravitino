@@ -112,10 +112,10 @@ public class IcebergRESTOSSIT extends IcebergRESTJdbcCatalogIT {
   }
 
   private void downloadIcebergForAliyunJar() throws IOException {
-    String icebergBundleJarName = "iceberg-aliyun-1.5.2.jar";
+    String icebergBundleJarName = "iceberg-aliyun-1.6.0.jar";
     String icebergBundleJarUri =
         "https://repo1.maven.org/maven2/org/apache/iceberg/"
-            + "iceberg-aliyun/1.5.2/"
+            + "iceberg-aliyun/1.6.0/"
             + icebergBundleJarName;
     String gravitinoHome = System.getenv("GRAVITINO_HOME");
     String targetDir = String.format("%s/iceberg-rest-server/libs/", gravitinoHome);

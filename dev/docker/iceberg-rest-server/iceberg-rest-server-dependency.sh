@@ -46,19 +46,19 @@ cp ${gravitino_home}/bundles/gcp-bundle/build/libs/gravitino-gcp-bundle-*.jar bu
 cp ${gravitino_home}/bundles/aws-bundle/build/libs/gravitino-aws-bundle-*.jar bundles/
 cp ${gravitino_home}/bundles/azure-bundle/build/libs/gravitino-azure-bundle-*.jar bundles/
 
-iceberg_gcp_bundle="iceberg-gcp-bundle-1.5.2.jar"
+iceberg_gcp_bundle="iceberg-gcp-bundle-1.6.0.jar"
 if [ ! -f "bundles/${iceberg_gcp_bundle}" ]; then
-  curl -L -s -o bundles/${iceberg_gcp_bundle} https://repo1.maven.org/maven2/org/apache/iceberg/iceberg-gcp-bundle/1.5.2/${iceberg_gcp_bundle}
+  curl -L -s -o bundles/${iceberg_gcp_bundle} https://repo1.maven.org/maven2/org/apache/iceberg/iceberg-gcp-bundle/1.6.0/${iceberg_gcp_bundle}
 fi
 
-iceberg_aws_bundle="iceberg-aws-bundle-1.5.2.jar"
+iceberg_aws_bundle="iceberg-aws-bundle-1.6.0.jar"
 if [ ! -f "bundles/${iceberg_aws_bundle}" ]; then
-  curl -L -s -o bundles/${iceberg_aws_bundle} https://repo1.maven.org/maven2/org/apache/iceberg/iceberg-aws-bundle/1.5.2/${iceberg_aws_bundle}
+  curl -L -s -o bundles/${iceberg_aws_bundle} https://repo1.maven.org/maven2/org/apache/iceberg/iceberg-aws-bundle/1.6.0/${iceberg_aws_bundle}
 fi
 
-iceberg_azure_bundle="iceberg-azure-bundle-1.5.2.jar"
+iceberg_azure_bundle="iceberg-azure-bundle-1.6.0.jar"
 if [ ! -f "bundles/${iceberg_azure_bundle}" ]; then
-  curl -L -s -o bundles/${iceberg_azure_bundle} https://repo1.maven.org/maven2/org/apache/iceberg/iceberg-azure-bundle/1.5.2/${iceberg_azure_bundle}
+  curl -L -s -o bundles/${iceberg_azure_bundle} https://repo1.maven.org/maven2/org/apache/iceberg/iceberg-azure-bundle/1.6.0/${iceberg_azure_bundle}
 fi
 
 # download jdbc driver

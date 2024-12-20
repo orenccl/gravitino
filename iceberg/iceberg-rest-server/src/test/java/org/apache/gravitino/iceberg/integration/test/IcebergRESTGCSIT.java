@@ -92,9 +92,9 @@ public class IcebergRESTGCSIT extends IcebergRESTJdbcCatalogIT {
   }
 
   private void downloadIcebergBundleJar() throws IOException {
-    String icebergBundleJarName = "iceberg-gcp-bundle-1.5.2.jar";
+    String icebergBundleJarName = "iceberg-gcp-bundle-1.6.0.jar";
     String icebergBundleJarUri =
-        "https://repo1.maven.org/maven2/org/apache/iceberg/iceberg-gcp-bundle/1.5.2/"
+        "https://repo1.maven.org/maven2/org/apache/iceberg/iceberg-gcp-bundle/1.6.0/"
             + icebergBundleJarName;
     String gravitinoHome = System.getenv("GRAVITINO_HOME");
     String targetDir = String.format("%s/iceberg-rest-server/libs/", gravitinoHome);

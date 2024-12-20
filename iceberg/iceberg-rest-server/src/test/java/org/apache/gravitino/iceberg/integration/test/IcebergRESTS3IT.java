@@ -110,10 +110,10 @@ public class IcebergRESTS3IT extends IcebergRESTJdbcCatalogIT {
   }
 
   private void downloadIcebergAwsBundleJar() throws IOException {
-    String icebergBundleJarName = "iceberg-aws-bundle-1.5.2.jar";
+    String icebergBundleJarName = "iceberg-aws-bundle-1.6.0.jar";
     String icebergBundleJarUri =
         "https://repo1.maven.org/maven2/org/apache/iceberg/"
-            + "iceberg-aws-bundle/1.5.2/"
+            + "iceberg-aws-bundle/1.6.0/"
             + icebergBundleJarName;
     String gravitinoHome = System.getenv("GRAVITINO_HOME");
     String targetDir = String.format("%s/iceberg-rest-server/libs/", gravitinoHome);
